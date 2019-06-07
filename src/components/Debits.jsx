@@ -1,54 +1,70 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance';
-    
+
 class Debits extends Component {
+    
   constructor(props){
     super(props);
+
     this.state = {
-      isHidden: false
+        data: this.props.debitHistory || []
     }
+      
+
+
+    this.addDebit = this.addDebit.bind(this);
   }
-  //{  this.props.updateJson(["something", "123"]);}
 
-  render() {
 
-    let StaticElements = (
+  
+  addDebit = () => {
+
+    let newObject = {
+      amount: 250,
+      date: new Date().toString(),
+      description: 'NEW DEBIT',
+      id: 2
+    };
+
+
+    this.setState({
+      data: [...this.state.data, newObject]
+    })
+    this.props.UpdateDebit(newObject);
+
+  }
+
+  render(){
+    let staticElement = (
       <div>
-        <Link to="/">Home</Link>
-        <br/>
-        <Link to="/userProfile">User Profile</Link>
         <h1>Debit Information</h1>
-        <div>Current Balance: {this.props.accountBalance}</div>
+        <Link to="/">Home</Link>
       </div>
     );
-
-    //All elements in JSON 
-    let displayInfo =
-      this.props.debitInfo.map( element => {
-        return(
-          <div className="DataInformation">
-            <strong>{element["description"]}</strong>
-            <br/>
-            Amount: {element["amount"]}
-            <br/>
-            Date: {element["date"]}
-            <hr/>
-          </div>
-        )});
     
-
-    return (
-        <div>
-          
-          {StaticElements}
-          <button>Add Debit</button>
-          {displayInfo}
-          
-        </div>
-    );
+    return(
+      <div>
+        {staticElement}
+        <AccountBalance accountBalance={this.props.accountBalance}/>
+        <button onClick={this.addDebit}>Add Debit</button>
+        {
+          this.state.data.map((info) =>
+            <div className="DebitEntry">
+              <h3>{info["description"]}</h3>
+              <ul className="des">
+                <li>Amount: {info["amount"]}</li>
+                <li>Date: {info["date"]}</li>
+              </ul>
+              <hr/>
+            </div>
+          )
+        }
+          </div>
+      );
   }
+
 }
 
 export default Debits;

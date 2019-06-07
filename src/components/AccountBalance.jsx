@@ -7,11 +7,9 @@ class AccountBalance extends Component {
   render() {
     return (
         <div>
-          Balance: {(this.props.creditInfo - this.props.debitInfo).toFixed(2)}
+          Total Balance: {this.props.accountBalance}
           <br/>
-          Credits: {this.props.creditInfo}
-          <br/>
-          Debits: {this.props.debitInfo}
+
         </div>
     );
   }

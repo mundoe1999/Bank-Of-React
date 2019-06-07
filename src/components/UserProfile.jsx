@@ -7,8 +7,8 @@ class UserProfile extends Component {
     return (
         <div>
           <h1>User Profile</h1>
-          <div>Username: {this.props.userName}</div>
-          <div>Member Since: {this.props.memberSince}</div>
+          <div>Username: {this.props.userInfo.userName}</div>
+          <div>Member Since: {this.props.userInfo.memberSince}</div>
           <Link to="/">View Account Balance</Link>
         </div>
     );
